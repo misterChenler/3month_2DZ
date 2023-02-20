@@ -17,7 +17,8 @@ public class FirstFragment extends Fragment {
     private Button plus;
     private Button minus;
     private int klik;
-
+    private Button button_klik;
+    private Button buttonPanel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,8 @@ public class FirstFragment extends Fragment {
         textView=requireActivity().findViewById(R.id.zero);
         plus=requireActivity().findViewById(R.id.button_plus);
         minus=requireActivity().findViewById(R.id.button_minus);
+        button_klik=requireActivity().findViewById(R.id.button_plus);
+        buttonPanel=requireActivity().findViewById(R.id.button_panel);
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +48,26 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 textView.setText(toString().valueOf(klik));
                 klik--;
+
             }
         });
+        button_klik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setText(toString().valueOf(klik));
+                klik++;
+            }
+        });
+        buttonPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString("com",textView.getText().toString());
+                SeckondFragment fragment=new SeckondFragment();
+                fragment.setArguments(bundle);
+                    requireActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container,fragment).commit();
+            }
+        });
+
     }
 }
